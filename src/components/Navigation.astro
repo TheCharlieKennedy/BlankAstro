@@ -1,0 +1,140 @@
+---
+---
+
+<nav class="navbar">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li class="dropdown">
+      <button class="dropdown-toggle" aria-expanded="false">More ▾</button>
+      <ul class="dropdown-content">
+        <li><a href="/specifics/example">Example Page</a></li>
+      </ul>
+    </li>
+  </ul>
+  <div class="nav-right">
+    <button id="theme-toggle" aria-label="Toggle dark mode">
+      <span class="light-icon" aria-hidden="true">🌙</span>
+      <span class="dark-icon" aria-hidden="true">☀️</span>
+    </button>
+  </div>
+</nav>
+
+<style>
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--border);
+  }
+  .navbar > ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+  }
+  @media (min-width: 768px) {
+    .navbar > ul { gap: 2rem; }
+  }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .navbar a {
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  .navbar a:hover { color: var(--accent); }
+  .dropdown { position: relative; }
+  .dropdown-content {
+    display: none;
+    list-style: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--bg-primary);
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    border-radius: 4px;
+    z-index: 10;
+  }
+  .dropdown-content::before {
+    content: '';
+    position: absolute;
+    top: -0.5rem;
+    left: 0;
+    right: 0;
+    height: 0.5rem;
+  }
+  .dropdown-content li { padding: 0; }
+  .dropdown-content a {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .dropdown-content a:last-child { border-bottom: none; }
+  .dropdown-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 500;
+    color: var(--text-primary);
+    padding: 0;
+    transition: color 0.2s ease;
+  }
+  .dropdown-toggle:hover { color: var(--accent); }
+  @media (min-width: 769px) {
+    .dropdown:hover .dropdown-content { display: block; }
+  }
+  .dropdown.open .dropdown-content { display: block; }
+  #theme-toggle {
+    background: none;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    font-size: 1.4rem;
+  }
+  #theme-toggle:hover { border-color: var(--accent); transform: rotate(20deg); }
+  :global([data-theme="dark"]) .light-icon { display: none; }
+  :global([data-theme="light"]) .dark-icon { display: none; }
+</style>
+
+<script>
+  const dropdownToggle = document.querySelector('.dropdown-toggle');
+  const dropdown = document.querySelector('.dropdown');
+  dropdownToggle?.addEventListener('click', () => {
+    const isOpen = dropdown?.classList.toggle('open');
+    dropdownToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+  document.addEventListener('click', (e) => {
+    if (!dropdown?.contains(e.target as Node)) {
+      dropdown?.classList.remove('open');
+      dropdownToggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+  const themeToggle = document.getElementById('theme-toggle');
+  const html = document.documentElement;
+  const currentTheme = localStorage.getItem('theme') || 'dark';
+  html.setAttribute('data-theme', currentTheme);
+  themeToggle?.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>

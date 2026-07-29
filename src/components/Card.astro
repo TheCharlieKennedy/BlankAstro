@@ -1,0 +1,33 @@
+---
+interface Props {
+  href?: string;
+  class?: string;
+  [key: string]: any;
+}
+
+const { href, class: className, ...rest } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag href={href} class:list={["card", className]} {...rest}>
+  <slot />
+</Tag>
+
+<style>
+  .card {
+    display: block;
+    padding: var(--spacing-element);
+    background-color: var(--bg-secondary);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+  }
+
+  a.card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
+  }
+</style>

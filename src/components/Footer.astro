@@ -1,0 +1,129 @@
+---
+// Footer.astro
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-column">
+      <h3>Your Site</h3>
+      <p>A short tagline about your site.</p>
+    </div>
+
+    <div class="footer-links-row">
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/specifics/example">Example Page</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Connect</h3>
+        <ul>
+          <li><a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; {currentYear} Your Name. Built with Astro.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--footer-bg);
+    color: var(--footer-text);
+    padding: var(--spacing-section) var(--spacing-element) var(--spacing-element);
+    margin-top: var(--spacing-section);
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    padding-left: calc(50vw - 50% + var(--spacing-element));
+    padding-right: calc(50vw - 50% + var(--spacing-element));
+  }
+
+  .footer-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-section);
+    max-width: var(--max-width-page);
+    margin: 0 auto var(--spacing-section);
+  }
+
+  .footer-links-row {
+    display: flex;
+    gap: var(--spacing-section);
+    justify-content: center;
+    margin-top: calc(-1 * var(--spacing-section));
+  }
+
+  .footer-column {
+    text-align: center;
+  }
+
+  .footer-column h3 {
+    margin-bottom: var(--spacing-element);
+    font-size: 1.2rem;
+    color: var(--footer-text);
+  }
+
+  .footer-column p {
+    color: var(--footer-text);
+    line-height: var(--line-height-body);
+  }
+
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-column ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-column ul li a {
+    color: var(--footer-text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-column ul li a:hover {
+    color: var(--accent);
+  }
+
+  .footer-bottom {
+    text-align: center;
+    padding-top: var(--spacing-element);
+    border-top: 1px solid var(--border);
+    color: var(--footer-text);
+    font-size: 0.9rem;
+  }
+
+  .footer-bottom p {
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .footer-container {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .footer-links-row {
+      display: contents;
+      margin-top: 0;
+    }
+
+    .footer-column {
+      flex: 1 1 200px;
+      min-width: 150px;
+      text-align: left;
+    }
+  }
+</style>

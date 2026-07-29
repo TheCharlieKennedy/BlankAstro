@@ -1,0 +1,25 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+---
+
+<MainLayout title="Home | Your Site">
+  <PageHeader
+    title="Welcome!"
+    subtitle="This is your home page"
+  />
+
+  <div class="home-content">
+    <p>
+      Edit <code>src/pages/index.astro</code> to replace this text. Add blog posts under
+      <code>src/content/blog/</code> and standalone pages under <code>src/content/specifics/</code>.
+    </p>
+  </div>
+</MainLayout>
+
+<style>
+  .home-content {
+    max-width: var(--max-width-content);
+    margin: 0 auto;
+  }
+</style>

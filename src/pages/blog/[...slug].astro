@@ -1,0 +1,108 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '@/layouts/MainLayout.astro';
+import Tag from '@/components/Tag.astro';
+import BackLink from '@/components/BackLink.astro';
+
+export async function getStaticPaths() {
+  const blogPosts = await getCollection('blog');
+  return blogPosts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const isDraft = post.data.draft;
+const { Content } = isDraft ? { Content: null } : await post.render();
+
+function formatDate(date: Date): string {
+  return new Date(date).toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+}
+---
+
+<MainLayout title={post.data.title} description={post.data.description}>
+  <article class="content-body" id="post-article">
+    <header class="post-header">
+      <h1>{post.data.title}</h1>
+      <div class="post-meta">
+        <time datetime={post.data.pubDate.toISOString()}>
+          {formatDate(post.data.pubDate)}
+        </time>
+        {post.data.author && (
+          <span class="author">by {post.data.author}</span>
+        )}
+      </div>
+      {post.data.tags && <Tag tags={post.data.tags} />}
+    </header>
+
+    <div class="post-content">
+      {isDraft ? (
+        <p class="draft-notice">
+          This post is still being written. Check back once it's finished!
+        </p>
+      ) : (
+        <Content />
+      )}
+    </div>
+
+    <div class="post-footer">
+      <BackLink href="/blog" text="Back to Blog" />
+    </div>
+  </article>
+</MainLayout>
+
+<style>
+  .post-header {
+    margin-bottom: var(--spacing-section);
+    padding-bottom: var(--spacing-element);
+    border-bottom: 2px solid var(--border);
+  }
+  .post-header h1 {
+    font-size: var(--font-size-h1);
+    line-height: 1.2;
+    color: var(--text-primary);
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: var(--spacing-element);
+  }
+  .post-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: var(--spacing-element);
+  }
+  .post-meta time { font-weight: 500; }
+
+  .draft-notice {
+    padding: var(--spacing-element);
+    background-color: var(--bg-secondary);
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+    color: var(--text-secondary);
+  }
+  @media (min-width: 768px) {
+    .post-meta { flex-direction: row; gap: 1rem; }
+  }
+
+  .post-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--spacing-section);
+    padding-top: var(--spacing-element);
+    border-top: 1px solid var(--border);
+    gap: 1rem;
+  }
+  .post-footer :global(.back-footer) {
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+  }
+</style>

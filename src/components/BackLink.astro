@@ -1,0 +1,31 @@
+---
+interface Props {
+  href: string;
+  text?: string;
+}
+
+const { href, text = "Back" } = Astro.props;
+---
+
+<footer class="back-footer">
+  <a href={href} class="back-link">← {text}</a>
+</footer>
+
+<style>
+  .back-footer {
+    margin-top: 0;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: transform 0.2s ease;
+  }
+
+  .back-link:hover {
+    transform: translateX(-4px);
+  }
+</style>

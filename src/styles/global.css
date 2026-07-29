@@ -1,0 +1,371 @@
+/* Global Styles - Mobile First */
+
+/* ===================
+   Font Face
+   =================== */
+@font-face {
+  font-family: 'FiraCode Nerd Font';
+  src: url('/fonts/FiraCodeNerdFontMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraCode Nerd Font';
+  src: url('/fonts/FiraCodeNerdFontMono-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraCode Nerd Font';
+  src: url('/fonts/FiraCodeNerdFontMono-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===================
+   CSS Reset & Base
+   =================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===================
+   Design Tokens
+   =================== */
+:root {
+  /* Breakpoints (reference only - CSS can't use these directly) */
+  /* --bp-tablet: 768px; */
+  /* --bp-desktop: 1024px; */
+
+  /* Spacing - mobile defaults */
+  --spacing-page: 0.5rem;
+  --spacing-section: 1.5rem;
+  --spacing-element: 1rem;
+
+  /* Typography - mobile defaults */
+  --font-size-h1: 2rem;
+  --font-size-h2: 1.5rem;
+  --font-size-h3: 1.25rem;
+  --font-size-body: 1rem;
+  --line-height-body: 1.6;
+  --line-height-content: 1.8;
+
+  /* Layout - mobile defaults */
+  --max-width-content: 700px;
+  --max-width-page: 800px;
+
+  /* Light theme colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --accent: #0ea5e9;
+  --accent-hover: #0284c7;
+  --border: #e2e8f0;
+  --footer-bg: #1e293b;
+  --footer-text: #f8fafc;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --accent: #ff6eb4;
+  --accent-hover: #ff99cc;
+  --border: #334155;
+  --footer-bg: #1e293b;
+  --footer-text: #f8fafc;
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) {
+  :root {
+    --spacing-page: 1.5rem;
+    --spacing-section: 2.5rem;
+    --spacing-element: 1.5rem;
+
+    --font-size-h1: 2.5rem;
+    --font-size-h2: 2rem;
+    --font-size-h3: 1.5rem;
+  }
+}
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+  :root {
+    --spacing-page: 2rem;
+    --spacing-section: 3rem;
+    --spacing-element: 2rem;
+
+    --max-width-content: 800px;
+    --max-width-page: 960px;
+
+    --font-size-h1: 3rem;
+    --font-size-h2: 2.25rem;
+    --font-size-h3: 1.75rem;
+  }
+}
+
+/* Large Desktop (1280px+) */
+@media (min-width: 1280px) {
+  :root {
+    --spacing-page: 3rem;
+    --spacing-section: 4rem;
+
+    --max-width-content: 900px;
+    --max-width-page: 1100px;
+  }
+}
+
+/* ===================
+   Base Elements
+   =================== */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'FiraCode Nerd Font', 'Fira Code', monospace;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  max-width: var(--max-width-page);
+  margin: 0 auto;
+  padding: var(--spacing-page);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===================
+   Typography
+   =================== */
+h1, h2, h3, h4, h5, h6 {
+  margin: var(--spacing-section) 0 var(--spacing-element);
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+h1 { font-size: var(--font-size-h1); }
+h2 { font-size: var(--font-size-h2); }
+h3 { font-size: var(--font-size-h3); }
+
+p {
+  margin-bottom: var(--spacing-element);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+/* ===================
+   Code
+   =================== */
+code {
+  font-family: 'FiraCode Nerd Font', 'Fira Code', monospace;
+  background-color: var(--bg-secondary);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+pre {
+  background-color: var(--bg-secondary);
+  padding: var(--spacing-element);
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: var(--spacing-element) 0;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}
+
+/* ===================
+   Media
+   =================== */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* ===================
+   Lists
+   =================== */
+ul, ol {
+  margin-left: 2rem;
+  margin-bottom: var(--spacing-element);
+}
+
+/* ===================
+   Blockquotes
+   =================== */
+blockquote {
+  border-left: 4px solid var(--accent);
+  padding-left: var(--spacing-element);
+  margin: var(--spacing-element) 0;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* ===================
+   Article
+   =================== */
+article {
+  margin-bottom: var(--spacing-section);
+}
+
+article img {
+  margin: var(--spacing-section) 0;
+}
+
+/* ===================
+   Content Body
+   (for rendered markdown)
+   =================== */
+.content-body {
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  padding: var(--spacing-element) 0;
+  line-height: var(--line-height-content);
+  color: var(--text-primary);
+}
+
+.content-body h1 {
+  font-size: var(--font-size-h1);
+  margin-bottom: var(--spacing-section);
+  padding-bottom: var(--spacing-element);
+  border-bottom: 2px solid var(--border);
+  color: var(--text-primary);
+}
+
+.content-body h2 {
+  margin-top: var(--spacing-section);
+  margin-bottom: var(--spacing-element);
+  color: var(--accent);
+  font-size: var(--font-size-h2);
+}
+
+.content-body h3 {
+  margin-top: var(--spacing-section);
+  margin-bottom: 0.75rem;
+  font-size: var(--font-size-h3);
+}
+
+.content-body p {
+  margin-bottom: 1.25rem;
+}
+
+.content-body ul,
+.content-body ol {
+  margin-bottom: 1.25rem;
+  padding-left: 2rem;
+}
+
+.content-body li {
+  margin-bottom: 0.5rem;
+}
+
+.content-body blockquote {
+  border-left: 4px solid var(--accent);
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.content-body code {
+  background-color: var(--bg-secondary);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'FiraCode Nerd Font', 'Fira Code', monospace;
+}
+
+.content-body pre {
+  background-color: var(--bg-secondary);
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.content-body pre code {
+  background: none;
+  padding: 0;
+}
+
+.content-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: var(--spacing-section) 0;
+}
+
+.content-body hr {
+  border: none;
+  border-top: 2px solid var(--border);
+  margin: var(--spacing-section) 0;
+}
+
+.content-body a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.content-body a:hover {
+  color: var(--accent-hover);
+}
+
+.content-body strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.content-body em {
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+/* Tablet and up - content body */
+@media (min-width: 768px) {
+  .content-body {
+    padding: var(--spacing-section) 0;
+  }
+}
+
+/* ===================
+   Utility Classes
+   =================== */
+.container {
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

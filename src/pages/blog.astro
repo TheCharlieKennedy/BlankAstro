@@ -1,0 +1,116 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import Card from '@/components/Card.astro';
+import Tag from '@/components/Tag.astro';
+import { getCollection } from 'astro:content';
+
+// Get all blog posts
+const blogPosts = await getCollection('blog');
+
+// Sort by date, newest first
+const sortedPosts = blogPosts.sort((a, b) =>
+  new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
+
+// Format date helper
+function formatDate(date: Date): string {
+  return new Date(date).toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+}
+---
+
+<MainLayout title="Blog | Your Site" description="Posts and updates">
+  <PageHeader
+    title="Blog"
+    subtitle="Updates and thoughts"
+  />
+
+  <div class="blog-intro">
+    <p>
+      This is where blog posts show up. Edit this intro in <code>src/pages/blog.astro</code>.
+    </p>
+  </div>
+
+  <div class="posts-list">
+    {sortedPosts.length === 0 ? (
+      <p class="no-posts">No posts yet. Check back soon!</p>
+    ) : (
+      sortedPosts.map((post) => (
+        <Card href={`/blog/${post.slug}`} class="post-card" data-slug={post.slug}>
+          <div class="card-title-row">
+            <h2>{post.data.title}</h2>
+          </div>
+          <time datetime={post.data.pubDate.toISOString()}>
+            {formatDate(post.data.pubDate)}
+          </time>
+          {post.data.description && (
+            <p class="post-description">{post.data.description}</p>
+          )}
+          {post.data.tags && <Tag tags={post.data.tags} />}
+        </Card>
+      ))
+    )}
+  </div>
+</MainLayout>
+
+<style>
+  .blog-intro {
+    max-width: var(--max-width-content);
+    margin: 0 auto var(--spacing-section);
+    padding: var(--spacing-element);
+    background-color: var(--bg-secondary);
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+  }
+
+  .blog-intro p {
+    margin: 0;
+    color: var(--text-secondary);
+  }
+
+  .posts-list {
+    max-width: var(--max-width-content);
+    margin: 0 auto;
+  }
+
+  .no-posts {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: var(--spacing-section);
+  }
+
+  .post-card {
+    margin-bottom: var(--spacing-section);
+  }
+
+  .card-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .post-card h2 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: var(--font-size-h2);
+    flex: 1;
+  }
+
+  .post-card time {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .post-description {
+    color: var(--text-secondary);
+    margin: 0.75rem 0;
+    line-height: var(--line-height-body);
+  }
+</style>

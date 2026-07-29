@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '@/layouts/MainLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import BackLink from '@/components/BackLink.astro';
+
+export async function getStaticPaths() {
+  const specificsPages = await getCollection('specifics');
+  return specificsPages.map(page => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+const { Content } = await page.render();
+---
+
+<MainLayout title={page.data.title} description={page.data.description}>
+  <PageHeader title={page.data.title} subtitle={page.data.description} />
+  <article class="content-body specifics-body">
+    <Content />
+    <BackLink href="/" text="Back to Home" />
+  </article>
+</MainLayout>
+
+<style>
+  .specifics-body { padding-top: 0; }
+</style>
