@@ -14,8 +14,8 @@
   </ul>
   <div class="nav-right">
     <button id="theme-toggle" aria-label="Toggle dark mode">
-      <span class="light-icon" aria-hidden="true">🌙</span>
-      <span class="dark-icon" aria-hidden="true">☀️</span>
+      <span class="light-icon" aria-hidden="true">󰖑</span>
+      <span class="dark-icon" aria-hidden="true">󰖔</span>
     </button>
   </div>
 </nav>
@@ -108,6 +108,7 @@
     transition: all 0.3s ease;
     overflow: hidden;
     font-size: 1.4rem;
+    font-family: 'FiraCode Nerd Font', monospace;
   }
   #theme-toggle:hover { border-color: var(--accent); transform: rotate(20deg); }
   :global([data-theme="dark"]) .light-icon { display: none; }
