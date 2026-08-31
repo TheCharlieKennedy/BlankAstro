@@ -141,7 +141,10 @@ body {
   max-width: var(--max-width-page);
   margin: 0 auto;
   padding: var(--spacing-page);
-  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.no-transition, .no-transition * {
+  transition: none !important;
 }
 
 /* ===================
